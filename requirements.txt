@@ -1,0 +1,20 @@
+torch==2.9.0
+torchvision==0.24.0
+numpy==2.2.6
+pandas==2.3.3
+scipy==1.15.3
+scikit-learn==1.7.2
+h5py==3.15.1
+PyYAML==6.0.3
+einops==0.8.1
+lightning==2.5.5
+torchmetrics==1.8.2
+tensorboard==2.20.0
+wandb==0.22.3
+tqdm==4.67.1
+matplotlib==3.10.7
+# CLAM instance-level SVM loss (Smooth Top-1 SVM); install from the smooth-topk project
+topk
+# MambaMIL backbone only (needs a CUDA toolchain)
+mamba_ssm==2.3.2.post1
+causal_conv1d==1.6.2.post1

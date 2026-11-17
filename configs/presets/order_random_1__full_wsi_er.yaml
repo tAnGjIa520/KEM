@@ -1,0 +1,191 @@
+D: 256
+D_feat: 1024
+K: 1
+L: 512
+acmil_attention_dim: 128
+acmil_droprate: 0.0
+acmil_mask_drop: 0.6
+acmil_n_masked_patch: 10
+acmil_n_token: 5
+bag_weight: 0.7
+batch_size: 1
+bilevel_bome_eta: 0.5
+bilevel_candidate_max: 2048
+bilevel_cluster_dim: 64
+bilevel_cluster_steps: 5
+bilevel_coarse_ratio: 2.0
+bilevel_damping: 0.1
+bilevel_distill_lambda: 0.1
+bilevel_feature_lambda: 0.1
+bilevel_inner_steps: 1
+bilevel_neumann_steps: 3
+bilevel_num_groups: 256
+bilevel_nystrom_rank: 5
+bilevel_outer_steps: 3
+bilevel_prefilter: maxrand
+bilevel_proxy_lr: 0.001
+bilevel_proxy_scope: aggregator_head
+bilevel_solver: unrolled
+bilevel_temperature: 0.1
+bilevel_weight_lr: 0.1
+buffer_allocation_policy: adaptive
+buffer_balance: false
+buffer_budget_file: '{{CODE_ROOT}}/configs/camelyon_tcga_morph_5t11c_5k_patch_budgets.json'
+buffer_budget_tolerance: 0.0
+buffer_capacity_policy: error
+buffer_embedding_lambda: 0.0
+buffer_metadata_csv: '{{CODE_ROOT}}/metadata/camelyon_tcga_morph_5t11c_manifest.csv'
+buffer_mode: strict_full_wsi
+buffer_patch_budget: 5000
+buffer_patch_levels: 64,128,256,512
+buffer_patch_selector: random
+buffer_ratio_floor: 64
+buffer_region_lambda: 0.0
+buffer_size: 1
+buffer_slide_ratio: 0.05
+buffer_slide_size: 0.0
+buffer_snapshot_dir: '{{LOG_ROOT}}/buffer_snapshots/{{EXP_NAME}}'
+buffer_snapshot_fp16: false
+buffer_snapshot_full: false
+cl_method: ER
+cl_on_current: false
+conslide_buffer_max_slides: -1
+conslide_region_partition: spatial
+conslide_region_size: 64
+conslide_replay_regions: 8
+conslide_store_ratio: 0.2
+csv_file: camelyon_tcga_morph_5t11c_cases.csv
+data_root: '{{CODE_ROOT}}/metadata'
+dataset: tcga_morph_cl
+debug: false
+distill_method: random
+dropout: true
+early_stop: true
+epochs: 50
+exp_name: '{{EXP_NAME}}'
+feat_dir: unused_with_feature_roots
+feature_extractor: UNI
+feature_root_base: '{{FEATURE_ROOT}}'
+feature_roots:
+  CAMELYON: CAMELYON/UNI
+  ESCA_ESAD: TCGA/ESCA_ESAD/UNI
+  ESCA_ESCC: TCGA/ESCA_ESCC/UNI
+  KICH: TCGA/KICH/UNI
+  KIRC: TCGA/KIRC/UNI
+  KIRP: TCGA/KIRP/UNI
+  LUAD: TCGA/LUAD/UNI
+  LUSC: TCGA/LUSC/UNI
+  TCGA_CRC: TCGA/TCGA_CRC/UNI
+  TCGA_STAD: TCGA/TCGA_STAD/UNI
+fixed_epoch_training: true
+folds_end: '{{FOLD_END}}'
+folds_start: '{{FOLD}}'
+gate: true
+head_calibration: false
+head_calibration_epochs: 3
+head_calibration_lr: 0.0001
+head_calibration_weight_norm: true
+histogram_every_n_epochs: 5
+instance_loss_name: svm
+k_sample: 8
+kem_anchor_method: maxminrand
+kem_anchor_ratio: 0.5
+kem_backend: auto
+kem_candidate_method: maxminrand
+kem_candidate_ratio: 4.0
+kem_diversity_lambda: 0.05
+kem_gradient_lambda: 1.0
+kem_outer_steps: 15
+kem_temperature_end: 0.01
+kem_temperature_start: 0.1
+kem_v4_attention_weight: 0.1
+kem_v4_candidate_max: 2048
+kem_v4_candidate_pool: maxminrand
+kem_v4_coverage_ratio: 0.7
+kem_v4_diversity_weight: 0.35
+kem_v4_influence_weight: 0.0
+kem_v4_leverage_weight: 0.25
+kem_v4_max_regions: 32
+kem_v4_min_region_size: 16
+kem_v4_patch_dropout: 0.2
+kem_v4_projection_dim: 64
+kem_v4_region_weight: 0.2
+kem_v4_selection_rule: weighted_sum
+kem_variant: anchored
+kem_weight_lr: 0.03
+label_dict:
+  CRC: 6
+  ESAD: 2
+  ESCC: 3
+  KICH: 8
+  KIRC: 9
+  KIRP: 10
+  LUAD: 4
+  LUSC: 5
+  STAD: 7
+  normal: 0
+  tumor: 1
+load: null
+log_cl_matrices: true
+log_confusion_matrices: true
+log_every_n_steps: 10
+log_histograms: false
+log_root: '{{LOG_ROOT}}'
+lr: 0.0002
+mmil_cluster_dim: 64
+mmil_group_max_size: 4300
+mmil_kmeans_steps: 8
+mmil_num_subbags: 4
+model: clam_sb
+n_batches: -1
+n_classes: 11
+n_folds: 5
+n_tasks: 5
+net: clam_sb
+opt: adam
+patience: 10
+pmil_m_max: 10
+pmil_search_rate: 10
+pmil_subset_count: 3
+pmil_timeout_seconds: 60.0
+prodiv_num_strata: 4
+project: KEM
+psemix_num_phenotypes: 8
+psemix_refine_steps: 8
+region_cache_dir: '{{LOG_ROOT}}/region_cache/{{EXP_NAME}}'
+region_confidence_power: 2.0
+region_fixed_count: 10
+region_loss_lambda: 0.5
+region_min_size: 16
+region_partition: spatial_balanced_100
+region_supervision: false
+region_target_patches: 100
+region_teacher_temperature: 2.0
+replay_schedule: fixed
+replay_updates_per_epoch: 78
+save_buffer_snapshots: true
+seed: '{{SEED}}'
+split_dir: splits/Camelyon_TCGA_morph_5t11c/order_random_1
+stored_logits_lambda: 0.1
+strict_patch_budget: true
+subtyping: true
+tensorboard: true
+testing: false
+unified_assignment_view: auto
+unified_assignment_weighted_replay: false
+unified_candidate_cache: true
+unified_candidate_cache_dir: '{{LOG_ROOT}}/candidate_cache/{{EXP_NAME}}'
+unified_candidate_max_slides: -1
+unified_class_conditioned: true
+unified_fixed_depth64: false
+unified_frozen_signature_mode: mean_std
+unified_objective: frozen_feature_coverage
+unified_projection_dim: 64
+unified_region_stratified_candidates: true
+unified_signature_seed: 1701
+unified_trajectory_mode: a
+unified_worst_class_lexicographic: false
+wandb_mode: offline
+weight_decay: 1.0e-05
+weighted_sample: true
+wn: false

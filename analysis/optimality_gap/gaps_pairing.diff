@@ -1,0 +1,15 @@
+--- original_main
++++ paired_main
+@@ -27,9 +27,9 @@
+         for subset_seed in range(3):
+             rng = np.random.default_rng(20260912 + fold * 100 + subset_seed)
+             selected = []
+-            for label in labels:
+-                group = sorted([c for c in pool if c.label == label], key=lambda c: c.slide_id)
+-                selected.extend(group[i] for i in rng.choice(len(group), 4, replace=False))
++            by_id = {c.slide_id: c for c in pool}
++            selected = [by_id[s] for s in fixed_subsets[fold, subset_seed]]
++            assert len(selected) == 8 and all(sum(c.label == label for c in selected) == 4 for label in labels)
+             similarity, costs, weights = ground_set(selected)
+             start = time.perf_counter()
+             states, totals, values = exact_states(similarity, costs, weights)
