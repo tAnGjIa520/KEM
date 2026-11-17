@@ -1,14 +1,12 @@
-<div align="center">
+<p align="center">
+  <img src="assets/cover.png" width="100%" alt="KEM: Knapsack-guided Episodic Memory">
+</p>
 
-# KEM: Knapsack-guided Episodic Memory for Continual Multiple-Instance Learning on Whole-Slide Images
+<div align="center">
 
 **Paper:** coming soon &nbsp;|&nbsp; **Code:** this repository
 
 </div>
-
-<p align="center">
-  <img src="assets/overview.png" width="100%" alt="Overview of KEM at a task boundary">
-</p>
 
 ## Overview
 
@@ -17,12 +15,22 @@ forgetting earlier ones. Replay is the workhorse of continual learning, but a gi
 so recent methods keep a **hierarchical memory**: they first choose which slides to keep and then which patches of each
 slide to store as a *pseudo-bag*. These two decisions are usually made separately.
 
+<p align="center">
+  <img src="assets/motivation.png" width="70%" alt="Motivation">
+  <br><em>(a, b) A WSI is far larger than a natural image, so replay cannot store it in full. (c, d) Existing methods choose slides and patches in separate stages and score items in isolation.</em>
+</p>
+
 **KEM** casts replay-memory construction as a **multiple-choice knapsack (MCK)** problem:
 
 - **Group** = an available slide; **option** = one of its candidate pseudo-bags (or the empty option); **cost** = the number of stored patches; **budget** = the patch budget *M*.
 - **Options:** low-redundancy candidate pseudo-bags are the prefixes (64/128/256/512 patches) of a greedy **log-determinant** ranking of each slide's patches.
 - **Value:** a monotone submodular **representativeness** score, i.e. how well every slide is represented by its most similar same-class pseudo-bag, computed from the mean and standard deviation of frozen patch features.
 - **Selection:** a greedy MCK solver that admits slides or upgrades their pseudo-bags by value gain per stored patch, with a computable bound on the distance to the optimal memory.
+
+<p align="center">
+  <img src="assets/overview.png" width="100%" alt="Overview of KEM">
+  <br><em>KEM at a task boundary: log-det candidate pseudo-bags for each slide, representativeness value, and greedy MCK selection under the patch budget.</em>
+</p>
 
 ## Main results
 
@@ -46,6 +54,20 @@ AACC of KEM with CLAM-SB across patch budgets:
 
 The full comparison (ER, DER++, PMIL, PseMix, MMIL, ConSlide, COSFormer, AGLR-CL), task-order and encoder robustness,
 and all ablations are in the paper.
+
+### Analysis
+
+<p align="center">
+  <img src="assets/attention.png" width="100%" alt="Attention on a task-1 tumor slide">
+  <br><em>Attention on a held-out task-1 tumor slide after each task. With KEM the slide stays correctly classified and attention stays on the lesion; with AKD+PMP it is misclassified from task 3 onward.</em>
+</p>
+
+<table>
+<tr>
+<td width="50%" align="center"><img src="assets/saturation.png" width="100%" alt="Saturation of pseudo-bag value"><br><em>Pseudo-bag value saturates at about 64 patches, so KEM spends the budget on covering more slides.</em></td>
+<td width="50%" align="center"><img src="assets/optimality_gap.png" width="100%" alt="Optimality gap"><br><em>On 60 instances solved exactly, KEM's greedy selection is within 0.009% of the optimum on average.</em></td>
+</tr>
+</table>
 
 ## Repository structure
 
