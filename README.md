@@ -4,7 +4,13 @@
 
 <div align="center">
 
-**Paper:** coming soon &nbsp;|&nbsp; **Code:** this repository
+[![Paper](https://img.shields.io/badge/Paper-coming%20soon-lightgrey)](#citation)
+[![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-KEM--features-yellow)](https://huggingface.co/datasets/tangjia0424/KEM-features)
+[![ModelScope](https://img.shields.io/badge/ModelScope-KEM--features-624aff)](https://modelscope.cn/datasets/showmeyourcode/KEM-features)
+
+**Pre-extracted features** (UNI, UNI2-h, CTransPath; 3,553 WSIs):
+[Hugging Face](https://huggingface.co/datasets/tangjia0424/KEM-features) &nbsp;|&nbsp;
+[ModelScope](https://modelscope.cn/datasets/showmeyourcode/KEM-features)
 
 </div>
 
@@ -111,6 +117,20 @@ pip install -r requirements.txt
 - CLAM's instance loss needs the `topk` package (Smooth Top-1 SVM from the smooth-topk project).
 
 ## Data and features
+
+**Download.** The frozen patch features used in the paper (UNI for the main experiments; UNI2-h and CTransPath for the
+encoder-robustness experiments), together with the slide metadata and splits, are available on
+[Hugging Face](https://huggingface.co/datasets/tangjia0424/KEM-features) (gated: accept the terms to download) and
+[ModelScope](https://modelscope.cn/datasets/showmeyourcode/KEM-features). They are released for non-commercial academic
+research only (CC-BY-NC-ND-4.0, following the UNI terms). Each slide is one `.h5` file with `features` and `coords`, laid out
+as `FEATURE_ROOT` below; run `python tools/h5_to_pt.py --root <download dir>` from the dataset to write the `pt_files/`
+that the code reads. To get only the main-experiment features:
+
+```python
+from huggingface_hub import snapshot_download
+snapshot_download("tangjia0424/KEM-features", repo_type="dataset", local_dir="KEM-features",
+                  allow_patterns=["README.md", "metadata/*", "splits/*", "tools/*", "CAMELYON/UNI/*", "TCGA/*/UNI/*"])
+```
 
 Benchmark: Camelyon--TCGA MorphCL, 3,553 slides, five tasks, 11 classes. Slides come from the public Camelyon16 and
 TCGA (ESCA, LUAD, LUSC, CRC, STAD, KICH, KIRC, KIRP) collections; `metadata/camelyon_tcga_morph_5t11c_cases.csv`
